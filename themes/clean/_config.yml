@@ -1,0 +1,31 @@
+# Header
+menu:
+  Home: /
+  Archives: /archives
+
+# Title on top left of menu. Leave empty to use main blog title
+menu_title: Refreshow
+
+# URL of the Home page image
+index_cover: http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg
+
+# Default post title
+default_post_title: Untitled
+
+# Comments. Choose one by filling up the information
+comments:
+  # Disqus comments
+  disqus_shortname: refreshow-blog
+  # Facebook comments
+  facebook:
+    appid:
+    comment_count: 5
+    comment_colorscheme: light
+
+# Google Analytics Tracking ID
+google_analytics:
+
+# Social Accounts
+twitter_url:
+facebook_url:
+github_url: https://github.com/refreshow
