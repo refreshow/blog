@@ -11,7 +11,7 @@ author: gocreating
 本系列文章參考目錄如下：
 
 - [Part 0: 總覽](./)
-- Part 1: 編輯器
+- [Part 1: 編輯器](../MERN-Stack-產品開發之路-Part-1-編輯器)
   - Atom
 - Part 2: 版本控制
   - Git
