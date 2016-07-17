@@ -42,8 +42,8 @@ const addSomething = (text) => dispatch({
 如果說Action是工頭，那Reducer就是工人，也就是實際上去做事情的角色。
 在此要強調Reducer是一個pure function，例子如下:
 ```
-function addSomething(state = initialState, action){
- switch(action.type){
+function addSomething(state = initialState, action) {
+ switch(action.type) {
    case ADD:
      return Object.assign({}, state, {text:'33'});
    case MINUS:
@@ -55,7 +55,7 @@ function addSomething(state = initialState, action){
 ```
 
 ### Tip1
-順便一提，assign會將原本的state加上新的屬性質，回傳一個全新的物件，並不會修改原本的物件。
+順便一提，assign會將原本的state(第二個參數)加上新的屬性質(第三個參數)，回傳一個全新的物件，並不會修改原本的物件。
 特別注意的是，assign的第三個參數，如果跟原本的state裡面的屬性質有一樣時，會修改其值，如果原本物件
 沒有此屬性，會新增。
 
@@ -90,4 +90,4 @@ handleChange()
 ```
 
 更多想知道的部分，請參考
-[redux](https://redux.js.org/index.html)
+[redux](http://redux.js.org/index.html)
