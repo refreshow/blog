@@ -55,3 +55,27 @@ hexo g -w # hexo generate --watch
 hexo s # hexo server
 hexo d # hexo deploy
 ```
+
+## 目錄多層 by Rae
+
+如果你想要寫的文章，需要兩層式以上來分類，則需要改動_config.yml裡面的permalink
+例如，如果你想要寫一個React.js的文章，他隸屬Javascript的範疇，則需要在_config.yml中，改成
+``` bash
+permalink: :category/:title/
+```
+三層以上，以此類推..
+
+然後在自己文章中的開頭寫成
+```
+categories: [Javascript, React.js]
+```
+這樣就大功告成
+
+## 文章版面
+
+你可以決定你的文章要顯示多少在首頁上，只需要在你想顯示的部分的下面打上即可。
+```
+<!--more -->
+```
+
+
