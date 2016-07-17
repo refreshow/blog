@@ -1,6 +1,8 @@
 title: 如何多人協作Github Pages部落格
 date: 2016-07-17 15:43:09
-tags: hexo, blog
+tags:
+  - hexo
+  - blog
 categories: training
 author: gocreating
 ---

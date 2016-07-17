@@ -1,6 +1,7 @@
 title: 'MERN Stack 產品開發之路 - Part 1: 編輯器'
 date: 2016-07-16 15:23:43
-tags: MERN
+tags:
+  - MERN
 categories: training
 author: gocreating
 ---

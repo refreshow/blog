@@ -1,6 +1,7 @@
 title: 'MERN Stack 產品開發之路 - Part 2: 版本控制'
 date: 2016-07-16 21:45:59
-tags: MERN
+tags:
+  - MERN
 categories: training
 author: gocreating
 ---
