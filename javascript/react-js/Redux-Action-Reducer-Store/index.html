@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Redux-Action/Reducer/Store - Refreshow</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Action在redux中，網站與使用者一些的互動行為，都需要發出Action。如要發出一個Action則需利用redux原生的method:1store.dispath(ActionCreator(action));">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redux-Action/Reducer/Store">
+<meta property="og:url" content="https://refreshow.github.io/blog/javascript/react-js/Redux-Action-Reducer-Store/index.html">
+<meta property="og:site_name" content="Refreshow">
+<meta property="og:description" content="Action在redux中，網站與使用者一些的互動行為，都需要發出Action。如要發出一個Action則需利用redux原生的method:1store.dispath(ActionCreator(action));">
+<meta property="og:updated_time" content="2016-07-17T15:06:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redux-Action/Reducer/Store">
+<meta name="twitter:description" content="Action在redux中，網站與使用者一些的互動行為，都需要發出Action。如要發出一個Action則需利用redux原生的method:1store.dispath(ActionCreator(action));">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/blog/blog/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/blog/blog/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/blog/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/blog/">Refreshow</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/blog/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/blog/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/blog/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://refreshow.github.io/blog"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-Redux-Action-Reducer-Store" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Redux-Action/Reducer/Store
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/blog/javascript/react-js/Redux-Action-Reducer-Store/" class="article-date">
+  <time datetime="2016-07-17T13:32:13.000Z" itemprop="datePublished">2016-07-17</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/javascript/">javascript</a><span>></span><a class="article-category-link" href="/blog/categories/javascript/react-js/">react.js</a>
+  </div>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h2><p>在redux中，網站與使用者一些的互動行為，都需要發出Action。如要發出一個Action則需利用redux原生的method:<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">store<span class="selector-class">.dispath</span>(ActionCreator(action));</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>而Action是由物件來描述，如：<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> ADD_SOMETHING = <span class="string">'ADD_SOMETHING'</span></div><div class="line">&#123;</div><div class="line">  type: ADD_SOMETHING,</div><div class="line">  <span class="built_in">text</span>: <span class="string">'Hello world'</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在redux中，Action Type傳統來看類型會是String。</p>
+<p>ActionCreator則是一個pure function，即表示此fucntion不會改變任何傳進此函數的參數。<br>No surprises , No side effects. No API calls. No mutations. Just a caculation.</p>
+<p>結合上面的想法，簡單的例子如下:<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const addSomething = (<span class="name">text</span>) =&gt; dispatch(<span class="name">addToDo</span>(<span class="name">text</span>))<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>當然，如果你懶得寫ActionCreator，也可以這樣寫<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> addSomething = (<span class="built_in">text</span>) =&gt; dispatch(&#123;</div><div class="line">  type: ADD_SOMETHING,</div><div class="line">  <span class="built_in">text</span>: <span class="string">'Hello world'</span>,		</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h2 id="Reducer"><a href="#Reducer" class="headerlink" title="Reducer"></a>Reducer</h2><p>如果說Action是工頭，那Reducer就是工人，也就是實際上去做事情的角色。<br>在此要強調Reducer是一個pure function，例子如下:<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function addSomething(<span class="keyword">state</span> = initialState, action)&#123;</div><div class="line"> switch(action.type)&#123;</div><div class="line">   case ADD:</div><div class="line">     return Object.assign(&#123;&#125;, <span class="keyword">state</span>, &#123;text:'<span class="number">33</span>'&#125;);</div><div class="line">   case MINUS:</div><div class="line">     ....同上</div><div class="line">   <span class="keyword">default</span>:</div><div class="line">     return <span class="keyword">state</span>;</div><div class="line"> &#125;		</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="Tip1"><a href="#Tip1" class="headerlink" title="Tip1"></a>Tip1</h3><p>順便一提，assign會將原本的state加上新的屬性質，回傳一個全新的物件，並不會修改原本的物件。<br>特別注意的是，assign的第三個參數，如果跟原本的state裡面的屬性質有一樣時，會修改其值，如果原本物件<br>沒有此屬性，會新增。</p>
+<h3 id="Tip2"><a href="#Tip2" class="headerlink" title="Tip2"></a>Tip2</h3><p>在原生的設計，如果你沒有任何寫任何的Action，Reducer也是會全部執行，所以為什麼一定要寫default就是這原因。</p>
+<h2 id="Store"><a href="#Store" class="headerlink" title="Store"></a>Store</h2><p>Store顧名思義，就是一個儲存庫，其類型就是一個物件，即用一個物件來儲存資料，他能接收來源是Action，也就是一個物件。<br>它有三個重要的函數<br>(1)getState() : 得到目前的state<br>(2)dispatch() : 發出一個Action<br>(3)subcribe(listener) : 將store綁在一個你認為如果它變動，store必須跟著變動的函數</p>
+<p>dan 網頁中的例子如下:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">select</span>(<span class="params">state</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> state.some.deep.property</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> currentValue</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleChange</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">  <span class="keyword">let</span> previousValue = currentValue</div><div class="line">  currentValue = select(store.getState())</div><div class="line">  <span class="keyword">if</span> (previousValue !== currentValue) &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Some deep nested property changed from'</span>, previousValue, <span class="string">'to'</span>, currentValue)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> unsubscribe = store.subscribe(handleChange)</div><div class="line">handleChange()</div></pre></td></tr></table></figure></p>
+<p>更多想知道的部分，請參考<br><a href="https://redux.js.org/index.html" target="_blank" rel="external">redux</a></p>
+
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/">-javascript</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blog/training/如何多人協作Github-Pages部落格/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">如何多人協作Github Pages部落格&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Refreshow&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+
+<script src="/blog/blog/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+  </div>
+</body>
+</html>
