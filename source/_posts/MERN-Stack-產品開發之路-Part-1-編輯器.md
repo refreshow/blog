@@ -6,6 +6,8 @@ author: gocreating
 
 開發新產品的首要任務就是挑選一個舒適的開發環境，我個人用過`Sublime Text 3`與`Atom`兩款編輯器，較推薦使用`Atom`，原因就請見本文說明吧。
 
+<!-- more -->
+
 其餘還有各式各樣的現代編輯器：
 - [Nuclide][editor-nuclide]
 - [Brackets][editor-brackets]
