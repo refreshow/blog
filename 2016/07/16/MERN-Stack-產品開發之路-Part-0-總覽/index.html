@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>MERN Stack 產品開發之路 - Part 0: 總覽 - Refreshow</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在接下來的一系列文章，我會把產品開發切割為幾個部分逐一講解，並以Refreshow產品本身為例。和普遍教學不同的地方在於，所有內容會著重在實務上的考量及設計，並且視情況提供參考用的source code。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MERN Stack 產品開發之路 - Part 0: 總覽">
+<meta property="og:url" content="https://refreshow.github.io/blog/2016/07/16/MERN-Stack-產品開發之路-Part-0-總覽/index.html">
+<meta property="og:site_name" content="Refreshow">
+<meta property="og:description" content="在接下來的一系列文章，我會把產品開發切割為幾個部分逐一講解，並以Refreshow產品本身為例。和普遍教學不同的地方在於，所有內容會著重在實務上的考量及設計，並且視情況提供參考用的source code。">
+<meta property="og:updated_time" content="2016-07-17T10:11:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MERN Stack 產品開發之路 - Part 0: 總覽">
+<meta name="twitter:description" content="在接下來的一系列文章，我會把產品開發切割為幾個部分逐一講解，並以Refreshow產品本身為例。和普遍教學不同的地方在於，所有內容會著重在實務上的考量及設計，並且視情況提供參考用的source code。">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/blog/blog/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/blog/blog/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/blog/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/blog/">Refreshow</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/blog/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/blog/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/blog/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://refreshow.github.io/blog"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-MERN-Stack-產品開發之路-Part-0-總覽" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MERN Stack 產品開發之路 - Part 0: 總覽
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/blog/2016/07/16/MERN-Stack-產品開發之路-Part-0-總覽/" class="article-date">
+  <time datetime="2016-07-15T20:34:03.000Z" itemprop="datePublished">2016-07-16</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/training/">training</a>
+  </div>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在接下來的一系列文章，我會把產品開發切割為幾個部分逐一講解，並以Refreshow產品本身為例。和普遍教學不同的地方在於，所有內容會著重在<code>實務</code>上的考量及設計，並且視情況提供參考用的source code。</p>
+<a id="more"></a>
+<p>之所以強調<code>實務</code>，是因為網路上教學或是boilerplate多數都是以前端工程師的角度去思考，而忽略了和伺服器相容的重要性，而且專案規模普遍較小，boilerplate的彈性也就不足。因此我會以<code>Full Stack</code>的角度來切入，盡可能替專案提供全方面的考量。</p>
+<p>本系列文章參考目錄如下：</p>
+<ul>
+<li><a href="./">Part 0: 總覽</a></li>
+<li><a href="../MERN-Stack-產品開發之路-Part-1-編輯器">Part 1: 編輯器</a><ul>
+<li>Atom</li>
+</ul>
+</li>
+<li>Part 2: 版本控制<ul>
+<li>Git</li>
+</ul>
+</li>
+<li>Part 3: Isomorphic的專案結構<ul>
+<li>Express</li>
+<li>Mongoose</li>
+<li>Redux</li>
+</ul>
+</li>
+<li>Part 4: 自動化與打包<ul>
+<li>Gulp</li>
+<li>Webpack</li>
+</ul>
+</li>
+<li>Part 5: 品質控制<ul>
+<li>Test</li>
+<li>Coding style</li>
+</ul>
+</li>
+<li>Part 6: 如何著手開發新功能<ul>
+<li>Create new feature branch</li>
+<li>Design model &amp; schema</li>
+<li>Design server side REST api</li>
+<li>Map client side api to server side end point</li>
+<li>Design UI &amp; components</li>
+<li>Add tests</li>
+<li>Merge branch</li>
+</ul>
+</li>
+<li>Part 7: 部署上線<ul>
+<li>Heroku</li>
+</ul>
+</li>
+<li>Part 8: 持續整合與持續交付<ul>
+<li>這部分對我來說也還是個未知領域…</li>
+</ul>
+</li>
+</ul>
+<p>小弟只是個興趣使然的開發者，還有很多不熟或是未知的領域，文章應該無法寫到堪稱完美，所以內容如果有Bug歡迎留言討論！</p>
+
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/MERN/">MERN</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2016/07/16/MERN-Stack-產品開發之路-Part-1-編輯器/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          MERN Stack 產品開發之路 - Part 1: 編輯器
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Refreshow&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+
+<script src="/blog/blog/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+  </div>
+</body>
+</html>
