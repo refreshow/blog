@@ -16,12 +16,12 @@ Refreshow專案開發規範，提供新進開發人員開發時的注意事項�
     - `新增產品功能`或`移除產品功能`
       若要`更新產品功能`，優先使用已存在的Feature Branch，若不存在才建立新Branch
     - 你覺得必須開出Branch才能完成的功能
-    - 範例：新增Facebook登入功能、專案整合css modules
+    - 範例：新增Facebook登入功能、專案整合css modules、大規模的Code Refactor
 
   - 不需要Feature Branch的情況
     - 只需要一次Commit就可以完成的異動
-      請直接Commit在`dev` branch
-    - 範例：無法歸類於某個Feaure的小Bug
+      請直接Commit在`dev` Branch
+    - 範例：無法歸類於某個Feaure的小Bug或Typo
 
   - Feature Branch命名
     - 使用dash（`-`）串聯英文單字，盡量全部以`名詞`組合而成
@@ -29,22 +29,24 @@ Refreshow專案開發規範，提供新進開發人員開發時的注意事項�
 
 ## Git的使用
 
-- Commit message
+- Commit Message
   - 盡量英文
   - 首行首字大寫
-
-- Push前執行測試
-  將local commits push至`dev branch`之前，必須執行
-  ```
-  npm test
-  ```
-  確保dev永遠是production ready的狀態。
 
 - Commit前檢測Coding Style
   此部分若是使用Terminal操作Git，已經設定好Hook強制執行了，若是使用GUI，請手動執行
   ```
   npm run jscs
   ```
+
+- Push前
+  - 使用Rebase整理Commits
+  - 執行測試
+    將local commits push至`dev branch`之前，必須執行
+    ```
+    npm test
+    ```
+    確保dev永遠是production ready的狀態。
 
 - Merge
   為增加git log可讀性，所有的merge都要加上`--no-ff`，請勿使用GUI進行merge，範例如下：
