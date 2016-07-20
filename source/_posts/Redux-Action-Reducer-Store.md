@@ -1,8 +1,8 @@
 title: Redux-Action/Reducer/Store
 date: 2016-07-17 21:32:13
 Author: Rae
-tags: 
-  -javascript
+tags:
+  - javascript
 categories: [javascript, react.js]
 ---
 
