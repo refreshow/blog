@@ -59,3 +59,38 @@ Refreshow專案開發規範，提供新進開發人員開發時的注意事項�
 - preset採用[node-style-guide](https://github.com/felixge/node-style-guide)
 - 每行限制80字元
 - 檔尾需要保留一行空白行
+- Components
+  - 傳遞靜態屬性使用雙引號（`"`），請勿使用單引號（`'`）
+
+## Modules的Import順序
+
+1. node內建的modules
+2. 安裝於node_modules內的modules
+  有些community modules內建Components，視同此類型
+3. src下的modules
+  1. Constants
+  2. APIs
+  3. Actions
+  4. Components
+  5. 其他
+
+範例：
+
+``` js
+import React, { Component, PropTypes } from 'react'; // 2
+import classnames from 'classnames'; // 2
+import orderStatus from '../../../constants/status/order'; // 3-1
+import orderAPI from '../../../api/order'; // 3-2
+import PageLayout from '../../layouts/PageLayout'; // 3-4
+import Head from '../../Head'; // 3-4
+import PageHeader from '../../main/PageHeader'; // 3-4
+import OrderAppliedEmployee from '../../OrderAppliedEmployee'; // 3-4
+import OrderOverview from '../../OrderOverview'; // 3-4
+import PhaseList from '../../PhaseList'; // 3-4
+import Only from '../../utils/Only'; // 3-4
+```
+
+## 撰寫Component的注意事項
+
+- js的字串一律使用單引號或backtick（`` ` ``）
+- html的props一律使用雙引號

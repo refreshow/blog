@@ -4,7 +4,9 @@ tags:
   - hexo
   - blog
 categories: training
-author: gocreating
+author:
+  - gocreating
+  - rae
 ---
 
 多數人經營Github Pages當作自己的`個人`部落格，但是如果是公司、組織或團隊需要`多人`協作一個技術部落格呢？我們以hexo框架為例帶您了解Refreshow部落格是如何管理的！
@@ -46,17 +48,7 @@ hexo generate
 hexo deploy
 ```
 
-## 備註
-
-hexo的指令也可以使用簡寫：
-
-``` bash
-hexo g -w # hexo generate --watch
-hexo s # hexo server
-hexo d # hexo deploy
-```
-
-## 目錄多層 by Rae
+## 階層式分類
 
 如果你想要寫的文章，需要兩層式以上來分類，則需要改動_config.yml裡面的permalink
 例如，如果你想要寫一個React.js的文章，他隸屬Javascript的範疇，則需要在_config.yml中，改成
@@ -78,4 +70,28 @@ categories: [Javascript, React.js]
 <!--more -->
 ```
 
+## 備註
 
+1. hexo的指令也可以使用簡寫：
+
+  ``` bash
+  hexo g -w # hexo generate --watch
+  hexo s # hexo server
+  hexo d # hexo deploy
+  ```
+
+2. 自動化
+
+  可以在`package.json`新增腳本
+
+  ```js
+  {
+    // ...
+    "scripts": {
+      "deploy": "git pull && hexo generate && hexo deploy"
+    },
+    // ...
+  }
+  ```
+
+  之後只要`npm run deploy`就能發佈囉！
