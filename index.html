@@ -127,6 +127,407 @@
         <div class="outer">
             
             <section id="main">
+    <article id="post-How-To-Scaling-React-js-Applications" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/blog/2016/07/24/How-To-Scaling-React-js-Applications/">How To Scaling React.js Applications</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/blog/2016/07/24/How-To-Scaling-React-js-Applications/">
+            <time datetime="2016-07-24T01:43:53.000Z" itemprop="datePublished">2016-07-24</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/blog/categories/Javascript/">Javascript</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/blog/categories/Javascript/React-js/">React.js</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/blog/tags/javascript/">javascript</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p>這個主題其實是來自以下影片的筆記<br><a href="https://vimeo.com/168648012">How To Scaling React.js App</a></p>
+<p>這影片才半小時左右，滿值得看看的，有機會看完，也上來修改或補充我說的東西，<br>因為畢竟他說的英文有濃濃的xx腔，聽不是太懂，只能根據我所聽到的以及消化過的東西跟大家分享</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在開始之前，先大概瞭解作者。<br>作者叫mxstbr，他開發的boilerplate目前在<a href="http://andrewhfarmer.com/starter-project/">排名網站</a>中，<br>目前是第二名，在他影片的前言有特別提到他使用了</p>
+<ol>
+<li>KeyStoneJs</li>
+<li>ElementalUI</li>
+</ol></p>
+            <p class="article-more-link">
+                <a href="/blog/2016/07/24/How-To-Scaling-React-js-Applications/#more">繼續閱讀</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="https://refreshow.github.io/blog/blog/2016/07/24/How-To-Scaling-React-js-Applications/" data-id="cir4ytvy70000491uaeudzodt" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="https://refreshow.github.io/blog/blog/2016/07/24/How-To-Scaling-React-js-Applications/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="https://refreshow.github.io/blog/blog/2016/07/24/How-To-Scaling-React-js-Applications/">評論</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-WebStorm-vim" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/blog/2016/07/23/WebStorm-vim/">Webstorm + vim 雙劍合壁</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/blog/2016/07/23/WebStorm-vim/">
+            <time datetime="2016-07-23T02:31:03.000Z" itemprop="datePublished">2016-07-23</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/blog/categories/training/">training</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/blog/tags/Webstorm/">Webstorm</a>, <a class="tag-link" href="/blog/tags/vim/">vim</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p>一般來說，大部分寫網頁的人，都會使用 <code>atom</code> 或 <code>sublime</code> 這兩個編輯器。而我個人在還沒開始寫網頁之前，就是使用<code>vim</code>，所以理所當然，之後也是使用vim來編寫網頁。</p>
+<p>雖然 vim 這個老牌編輯器有很多很酷的手法，可以加速寫程式，但對於前端這樣一個快速飛漲的技術，也有一個相當大的缺點，便是插件數太少或太舊。這篇就來講一下如何將vim搭配<code>Webstorm</code>，提高寫網頁的速度。</p></p>
+            <p class="article-more-link">
+                <a href="/blog/2016/07/23/WebStorm-vim/#more">繼續閱讀</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="https://refreshow.github.io/blog/blog/2016/07/23/WebStorm-vim/" data-id="ciraf7vg90001kc1uhh99f73z" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="https://refreshow.github.io/blog/blog/2016/07/23/WebStorm-vim/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="https://refreshow.github.io/blog/blog/2016/07/23/WebStorm-vim/">評論</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-Refreshow開發規範" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/blog/2016/07/21/Refreshow開發規範/">Refreshow開發規範</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/blog/2016/07/21/Refreshow開發規範/">
+            <time datetime="2016-07-20T18:14:58.000Z" itemprop="datePublished">2016-07-21</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/blog/categories/training/">training</a>
+    </div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p>Refreshow專案開發規範，提供新進開發人員開發時的注意事項，及開發團隊應遵守的開發原則。</p></p>
+            <p class="article-more-link">
+                <a href="/blog/2016/07/21/Refreshow開發規範/#more">繼續閱讀</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="https://refreshow.github.io/blog/blog/2016/07/21/Refreshow開發規範/" data-id="ciraf7vfp0000kc1ujic5udbp" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="https://refreshow.github.io/blog/blog/2016/07/21/Refreshow開發規範/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="https://refreshow.github.io/blog/blog/2016/07/21/Refreshow開發規範/">評論</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-Redux-Action-Reducer-Store" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -160,7 +561,7 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/blog/tags/javascript/">-javascript</a>
+        <a class="tag-link" href="/blog/tags/javascript/">javascript</a>
     </div>
 
                     </div>
@@ -182,7 +583,7 @@
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/07/17/Redux-Action-Reducer-Store/" data-id="ciqqtynx90008iu1uwkpjsnes" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/07/17/Redux-Action-Reducer-Store/" data-id="cir4ytw05000l491uef7m9x1c" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -315,7 +716,7 @@
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/07/17/如何多人協作Github-Pages部落格/" data-id="ciqqtynxd000aiu1uaep3r1en" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/07/17/如何多人協作Github-Pages部落格/" data-id="cir4ytw03000h491ue2xmezct" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -448,7 +849,7 @@
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/07/16/MERN-Stack-產品開發之路-Part-2-版本控制/" data-id="ciqqtynx60006iu1ujmhbm8fl" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/07/16/MERN-Stack-產品開發之路-Part-2-版本控制/" data-id="cir4ytvzw000c491u82u22rdo" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -581,7 +982,7 @@
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/07/16/MERN-Stack-產品開發之路-Part-1-編輯器/" data-id="ciqqtynww0002iu1uddk3d2dd" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/07/16/MERN-Stack-產品開發之路-Part-1-編輯器/" data-id="cir4ytw01000e491ubfuzl115" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -714,7 +1115,7 @@
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/07/16/MERN-Stack-產品開發之路-Part-0-總覽/" data-id="ciqqtynwp0000iu1up0s3jie0" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/07/16/MERN-Stack-產品開發之路-Part-0-總覽/" data-id="cir4ytvyc0001491ub7jqaen6" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -804,6 +1205,33 @@
                     <li>
                         
                         <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/blog/categories/Javascript/">Javascript</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/blog/categories/Javascript/React-js/">React.js</a></p>
+                            <p class="item-title"><a href="/blog/2016/07/24/How-To-Scaling-React-js-Applications/" class="title">How To Scaling React.js Applications</a></p>
+                            <p class="item-date"><time datetime="2016-07-24T01:43:53.000Z" itemprop="datePublished">2016-07-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/blog/categories/training/">training</a></p>
+                            <p class="item-title"><a href="/blog/2016/07/23/WebStorm-vim/" class="title">Webstorm + vim 雙劍合壁</a></p>
+                            <p class="item-date"><time datetime="2016-07-23T02:31:03.000Z" itemprop="datePublished">2016-07-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/blog/categories/training/">training</a></p>
+                            <p class="item-title"><a href="/blog/2016/07/21/Refreshow開發規範/" class="title">Refreshow開發規範</a></p>
+                            <p class="item-date"><time datetime="2016-07-20T18:14:58.000Z" itemprop="datePublished">2016-07-21</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/blog/categories/javascript/">javascript</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/blog/categories/javascript/react-js/">react.js</a></p>
                             <p class="item-title"><a href="/blog/2016/07/17/Redux-Action-Reducer-Store/" class="title">Redux-Action/Reducer/Store</a></p>
                             <p class="item-date"><time datetime="2016-07-17T13:32:13.000Z" itemprop="datePublished">2016-07-17</time></p>
@@ -819,33 +1247,6 @@
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/blog/categories/training/">training</a></p>
-                            <p class="item-title"><a href="/blog/2016/07/16/MERN-Stack-產品開發之路-Part-2-版本控制/" class="title">MERN Stack 產品開發之路 - Part 2: 版本控制</a></p>
-                            <p class="item-date"><time datetime="2016-07-16T13:45:59.000Z" itemprop="datePublished">2016-07-16</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/blog/categories/training/">training</a></p>
-                            <p class="item-title"><a href="/blog/2016/07/16/MERN-Stack-產品開發之路-Part-1-編輯器/" class="title">MERN Stack 產品開發之路 - Part 1: 編輯器</a></p>
-                            <p class="item-date"><time datetime="2016-07-16T07:23:43.000Z" itemprop="datePublished">2016-07-16</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/blog/categories/training/">training</a></p>
-                            <p class="item-title"><a href="/blog/2016/07/16/MERN-Stack-產品開發之路-Part-0-總覽/" class="title">MERN Stack 產品開發之路 - Part 0: 總覽</a></p>
-                            <p class="item-date"><time datetime="2016-07-15T20:34:03.000Z" itemprop="datePublished">2016-07-16</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -855,7 +1256,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">分類</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">javascript</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/react-js/">react.js</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/training/">training</a><span class="category-list-count">4</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Javascript/">Javascript</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Javascript/React-js/">React.js</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">javascript</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/react-js/">react.js</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/training/">training</a><span class="category-list-count">6</span></li></ul>
         </div>
     </div>
 
@@ -864,7 +1265,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">歸檔</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">七月 2016</a><span class="archive-list-count">5</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">七月 2016</a><span class="archive-list-count">8</span></li></ul>
         </div>
     </div>
 
@@ -873,7 +1274,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">標籤</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">-javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/MERN/">MERN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/MERN/">MERN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Webstorm/">Webstorm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vim/">vim</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -882,7 +1283,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">標籤雲</h3>
         <div class="widget tagcloud">
-            <a href="/blog/tags/javascript/" style="font-size: 10px;">-javascript</a> <a href="/blog/tags/MERN/" style="font-size: 20px;">MERN</a> <a href="/blog/tags/blog/" style="font-size: 10px;">blog</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a>
+            <a href="/blog/tags/MERN/" style="font-size: 20px;">MERN</a> <a href="/blog/tags/Webstorm/" style="font-size: 10px;">Webstorm</a> <a href="/blog/tags/blog/" style="font-size: 10px;">blog</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/blog/tags/vim/" style="font-size: 10px;">vim</a>
         </div>
     </div>
 

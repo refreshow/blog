@@ -11,7 +11,7 @@
 <meta property="og:url" content="https://refreshow.github.io/blog/2016/07/17/如何多人協作Github-Pages部落格/index.html">
 <meta property="og:site_name" content="Refreshow">
 <meta property="og:description" content="多數人經營Github Pages當作自己的個人部落格，但是如果是公司、組織或團隊需要多人協作一個技術部落格呢？我們以hexo框架為例帶您了解Refreshow部落格是如何管理的！">
-<meta property="og:updated_time" content="2016-07-17T16:03:17.000Z">
+<meta property="og:updated_time" content="2016-07-31T09:44:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何多人協作Github Pages部落格">
 <meta name="twitter:description" content="多數人經營Github Pages當作自己的個人部落格，但是如果是公司、組織或團隊需要多人協作一個技術部落格呢？我們以hexo框架為例帶您了解Refreshow部落格是如何管理的！">
@@ -187,13 +187,21 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo generate --watch</div><div class="line">hexo server --debug</div></pre></td></tr></table></figure>
 <h2 id="發佈至Github"><a href="#發佈至Github" class="headerlink" title="發佈至Github"></a>發佈至Github</h2><p>由於我們是多人協作，為了避免發佈時覆蓋掉其他作者的文章，記得要先把其他人的文章pull下來，然後重新產生靜態檔案，最後才能Deploy。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git pull</div><div class="line">hexo generate</div><div class="line">hexo deploy</div></pre></td></tr></table></figure>
-<h2 id="備註"><a href="#備註" class="headerlink" title="備註"></a>備註</h2><p>hexo的指令也可以使用簡寫：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hexo g -w <span class="comment"># hexo generate --watch</span></div><div class="line">hexo s <span class="comment"># hexo server</span></div><div class="line">hexo d <span class="comment"># hexo deploy</span></div></pre></td></tr></table></figure>
-<h2 id="目錄多層-by-Rae"><a href="#目錄多層-by-Rae" class="headerlink" title="目錄多層 by Rae"></a>目錄多層 by Rae</h2><p>如果你想要寫的文章，需要兩層式以上來分類，則需要改動_config.yml裡面的permalink<br>例如，如果你想要寫一個React.js的文章，他隸屬Javascript的範疇，則需要在_config.yml中，改成<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">permalink: :category/:title/</div></pre></td></tr></table></figure></p>
+<h2 id="階層式分類"><a href="#階層式分類" class="headerlink" title="階層式分類"></a>階層式分類</h2><p>如果你想要寫的文章，需要兩層式以上來分類，則需要改動_config.yml裡面的permalink<br>例如，如果你想要寫一個React.js的文章，他隸屬Javascript的範疇，則需要在_config.yml中，改成<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">permalink: :category/:title/</div></pre></td></tr></table></figure></p>
 <p>三層以上，以此類推..</p>
 <p>然後在自己文章中的開頭寫成<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">categories: <span class="string">[Javascript, React.js]</span></div></pre></td></tr></table></figure></p>
 <p>這樣就大功告成</p>
 <h2 id="文章版面"><a href="#文章版面" class="headerlink" title="文章版面"></a>文章版面</h2><p>你可以決定你的文章要顯示多少在首頁上，只需要在你想顯示的部分的下面打上即可。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--more --&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="備註"><a href="#備註" class="headerlink" title="備註"></a>備註</h2><ol>
+<li><p>hexo的指令也可以使用簡寫：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hexo g -w <span class="comment"># hexo generate --watch</span></div><div class="line">hexo s <span class="comment"># hexo server</span></div><div class="line">hexo d <span class="comment"># hexo deploy</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>自動化</p>
+<p>可以在<code>package.json</code>新增腳本</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">  <span class="string">"scripts"</span>: &#123;</div><div class="line">    <span class="string">"deploy"</span>: <span class="string">"git pull &amp;&amp; hexo generate &amp;&amp; hexo deploy"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>之後只要<code>npm run deploy</code>就能發佈囉！</p>
+</li>
+</ol>
 
         
         </div>
@@ -204,7 +212,7 @@
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/07/17/如何多人協作Github-Pages部落格/" data-id="ciqqtynxd000aiu1uaep3r1en" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/07/17/如何多人協作Github-Pages部落格/" data-id="cir4ytw03000h491ue2xmezct" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -327,6 +335,33 @@
                     <li>
                         
                         <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/blog/categories/Javascript/">Javascript</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/blog/categories/Javascript/React-js/">React.js</a></p>
+                            <p class="item-title"><a href="/blog/2016/07/24/How-To-Scaling-React-js-Applications/" class="title">How To Scaling React.js Applications</a></p>
+                            <p class="item-date"><time datetime="2016-07-24T01:43:53.000Z" itemprop="datePublished">2016-07-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/blog/categories/training/">training</a></p>
+                            <p class="item-title"><a href="/blog/2016/07/23/WebStorm-vim/" class="title">Webstorm + vim 雙劍合壁</a></p>
+                            <p class="item-date"><time datetime="2016-07-23T02:31:03.000Z" itemprop="datePublished">2016-07-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/blog/categories/training/">training</a></p>
+                            <p class="item-title"><a href="/blog/2016/07/21/Refreshow開發規範/" class="title">Refreshow開發規範</a></p>
+                            <p class="item-date"><time datetime="2016-07-20T18:14:58.000Z" itemprop="datePublished">2016-07-21</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/blog/categories/javascript/">javascript</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/blog/categories/javascript/react-js/">react.js</a></p>
                             <p class="item-title"><a href="/blog/2016/07/17/Redux-Action-Reducer-Store/" class="title">Redux-Action/Reducer/Store</a></p>
                             <p class="item-date"><time datetime="2016-07-17T13:32:13.000Z" itemprop="datePublished">2016-07-17</time></p>
@@ -342,33 +377,6 @@
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/blog/categories/training/">training</a></p>
-                            <p class="item-title"><a href="/blog/2016/07/16/MERN-Stack-產品開發之路-Part-2-版本控制/" class="title">MERN Stack 產品開發之路 - Part 2: 版本控制</a></p>
-                            <p class="item-date"><time datetime="2016-07-16T13:45:59.000Z" itemprop="datePublished">2016-07-16</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/blog/categories/training/">training</a></p>
-                            <p class="item-title"><a href="/blog/2016/07/16/MERN-Stack-產品開發之路-Part-1-編輯器/" class="title">MERN Stack 產品開發之路 - Part 1: 編輯器</a></p>
-                            <p class="item-date"><time datetime="2016-07-16T07:23:43.000Z" itemprop="datePublished">2016-07-16</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/blog/categories/training/">training</a></p>
-                            <p class="item-title"><a href="/blog/2016/07/16/MERN-Stack-產品開發之路-Part-0-總覽/" class="title">MERN Stack 產品開發之路 - Part 0: 總覽</a></p>
-                            <p class="item-date"><time datetime="2016-07-15T20:34:03.000Z" itemprop="datePublished">2016-07-16</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -378,7 +386,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">分類</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">javascript</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/react-js/">react.js</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/training/">training</a><span class="category-list-count">4</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Javascript/">Javascript</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Javascript/React-js/">React.js</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">javascript</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/react-js/">react.js</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/training/">training</a><span class="category-list-count">6</span></li></ul>
         </div>
     </div>
 
@@ -387,7 +395,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">歸檔</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">七月 2016</a><span class="archive-list-count">5</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">七月 2016</a><span class="archive-list-count">8</span></li></ul>
         </div>
     </div>
 
@@ -396,7 +404,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">標籤</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">-javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/MERN/">MERN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/MERN/">MERN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Webstorm/">Webstorm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vim/">vim</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -405,7 +413,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">標籤雲</h3>
         <div class="widget tagcloud">
-            <a href="/blog/tags/javascript/" style="font-size: 10px;">-javascript</a> <a href="/blog/tags/MERN/" style="font-size: 20px;">MERN</a> <a href="/blog/tags/blog/" style="font-size: 10px;">blog</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a>
+            <a href="/blog/tags/MERN/" style="font-size: 20px;">MERN</a> <a href="/blog/tags/Webstorm/" style="font-size: 10px;">Webstorm</a> <a href="/blog/tags/blog/" style="font-size: 10px;">blog</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/blog/tags/vim/" style="font-size: 10px;">vim</a>
         </div>
     </div>
 
