@@ -1,10 +1,10 @@
 # Menus
 menu:
-  首頁: .
-  文章: archives
-  分類: categories
-  標籤: tags
-  關於: about
+  Home: .
+  Archives: archives
+  Categories: categories
+  Tags: tags
+  About: about
 
 # Customize
 customize:
@@ -14,19 +14,19 @@ customize:
         height: 40
         url: images/logo.png
     profile:
-        enabled: true # Whether to show profile bar
+        enabled: false # Whether to show profile bar
         avatar: css/images/avatar.png
         gravatar: # Gravatar email address, if you enable Gravatar, your avatar config will be overriden
-        author: Refreshow
-        author_title: 瓦豹科技
-        location: Harbin, China
-        follow: https://github.com/refreshow/
+        author: Rae
+        author_title: Web Developer & Designer
+        location: Taiwan
+        follow: https://github.com/joey3060/
     highlight: monokai
     sidebar: right # sidebar position, options: left, right
-    thumbnail: true # enable posts thumbnail, options: true, false
+    thumbnail: false # enable posts thumbnail, options: true, false
     favicon: # path to favicon
     social_links:
-        github: http://github.com/refreshow
+        github: http://github.com/ppoffice/hexo-theme-icarus
         twitter: /
         facebook: /
         dribbble: /
@@ -50,7 +50,7 @@ search:
 
 # Comment
 comment:
-    disqus: refreshow-blog # enter disqus shortname here
+    disqus: hexo-theme-icarus # enter disqus shortname here
     duoshuo: # enter duoshuo shortname here
     youyan: # enter youyan uid here
 

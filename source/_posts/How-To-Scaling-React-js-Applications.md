@@ -1,4 +1,4 @@
-title: How_To_Scaling_React.js_Applications
+title: How To Scaling React.js Applications
 date: 2016-07-24 09:43:53
 Author: Rae
 tags: javascript
