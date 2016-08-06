@@ -180,48 +180,14 @@ ga('send', 'pageview');
         
         <div class="article-entry" itemprop="articleBody">
         
-            
-            <p>隨著ES6的普及，在Javascript中，宣告一個新的變數有三種方式</p>
+            <p><p>隨著ES6的普及，在Javascript中，宣告一個新的變數有三種方式</p>
 <ol>
 <li>var</li>
 <li>let</li>
-<li>const</li>
-</ol>
-<h1 id="function-scoping-vs-block-scoping"><a href="#function-scoping-vs-block-scoping" class="headerlink" title="function scoping vs block scoping"></a>function scoping vs block scoping</h1><p>第一種大家不陌生，但要特別注意它是<strong>function scoping</strong>，舉一些例子：<br>第一個例子，暖暖身，這是很單純的用法，不再解釋<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> width = <span class="number">500</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(width);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//---console---</span></div><div class="line"><span class="comment">//500</span></div></pre></td></tr></table></figure></p>
-<p>第二個例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> width = <span class="number">500</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>若在console中輸入<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">width</span> <span class="keyword">or</span> window.<span class="built_in">width</span></div></pre></td></tr></table></figure></p>
-<p>答案是會是</p>
-<blockquote>
-<p>500<br>why? 因為var是function scoping，我們若把var換成let和const，則會出現<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Uncaught ReferenceError: <span class="built_in">width</span> <span class="built_in">is</span> <span class="keyword">not</span> defined(…)</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p>因為let和const是block scoping。</p>
-<p>再來一個經典的問題<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>; i++)&#123;</div><div class="line">  setTimeout( <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">'The number is '</span> + i) &#125;,<span class="number">1000</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>如果你將上面的這串丟到console就會得到一個結果</p>
-<blockquote>
-<p>(10) The number is 10 &lt;–跑10次</p>
-</blockquote>
-<p>如果你將上面的var改成let<br>就會跑</p>
-<blockquote>
-<p>The number is 0<br>The number is 1<br>…跑到底</p>
-</blockquote>
-<p>why? 如果你用第一種寫法，因為i是function scoping，而且setTimeout其實是一種非同步的<br>函數，所以當1秒後，i早就跑到10了，才開始跑console.log(‘The number is’ + i )，所以<br>這時候全部都是The number is 10</p>
-<p>但如果用let為什麼會正常呢？ 因為let是block scoping所以，你可以把每一次重複繞的環圈的<br>{ }視作不同的block，而這些不同的{ }裡面有let宣告的變數，雖然名稱一樣，但是{ }不同<br>所以值都會保留下來</p>
-<h1 id="let-vs-const"><a href="#let-vs-const" class="headerlink" title="let vs const"></a>let vs const</h1><p>let是ES6宣告變數的新方式，由上面知道它除了是block scoping外，它還有一些特色，如:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> points = <span class="number">50</span>;</div><div class="line"><span class="keyword">let</span> points = <span class="number">60</span>;</div></pre></td></tr></table></figure></p>
-<p>會出現</p>
-<blockquote>
-<p>VM473:1 Uncaught TypeError: Identifier ‘points’ has already been declared(…)<br>也就是let宣告的『變數』(非常數) <strong>在同一個block中</strong>，無法在宣告第二次，而var就不會有此限制，這算是一種<br>保護機制，避免變數在專案越來越大，協同越來越多的情況下的措施。</p>
-</blockquote>
-<p>再來看看下面例子<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> <span class="attr">abc</span> = <span class="literal">false</span>;</div><div class="line"><span class="keyword">let</span> <span class="attr">math</span> = <span class="number">50</span>;</div><div class="line"><span class="keyword">if</span>(math&gt;<span class="number">30</span>) &#123;</div><div class="line">  <span class="keyword">let</span> <span class="attr">abc</span> = <span class="literal">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>若在console中輸入abc，則答案是false，why? 因為let是block scoping，第一個abc是屬於<br>window也就全域這個block，而第二個abc是屬於if這個block，雖然名稱相同，但是不同block<br>是不會出錯的。</p>
-<p>接下來我們來介紹const，顧名思義，就是常數，除了一定要初始化外，要注意的事情是<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> person = &#123;</div><div class="line">  name: <span class="string">'tom'</span>,</div><div class="line">  age: <span class="number">10</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>我們依然可以用下列方式來改變其值<br><figure class="highlight inform7"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">person</span>.name = 'john';</div><div class="line"><span class="keyword">person</span>.age = 12;</div></pre></td></tr></table></figure></p>
-<p>如果想讓物件無法被修改，可以使用<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> newPerson = <span class="built_in">Object</span>.freeze(person);</div></pre></td></tr></table></figure></p>
-<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>網路上不少文章有相關的比較: var, const, let，其中一些人認為var不應該存在於<br>ES6，但每個人想法不同，就讓各位去思考和評判。</p>
-<p>留下一些文章，讓有興趣深入研究的人可以看看</p>
-<blockquote>
-<p><a href="https://medium.com/javascript-scene/javascript-es6-var-let-or-const-ba58b8dcde75#.jbsmngybz" target="_blank" rel="external">JavaScript ES6+: var, let, or const?</a><br><a href="http://raganwald.com/2015/05/30/de-stijl.html" target="_blank" rel="external">De Stijl: How necessary are var, let, and const?</a></p>
-</blockquote>
-
+<li>const</p>
+            <p class="article-more-link">
+                <a href="/blog/2016/08/06/ES6-New-Variable/#more">繼續閱讀</a>
+            </p>
         
         </div>
         <footer class="article-footer">
@@ -231,7 +197,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/08/06/ES6-New-Variable/" data-id="cirja2pnc0000dc1u942t6cwy" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/08/06/ES6-New-Variable/" data-id="cirja43fn0000fe1uk7fd0dsb" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -364,7 +330,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/08/02/Redux-Saga介紹/" data-id="cirja2ppw000jdc1u1no83gwm" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/08/02/Redux-Saga介紹/" data-id="cirja43hp000ife1uhhnov4tu" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -503,7 +469,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/07/24/How-To-Scaling-React-js-Applications/" data-id="cirja2ppf000bdc1upgtivz92" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/07/24/How-To-Scaling-React-js-Applications/" data-id="cirja43hg000dfe1u7ky97cqh" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -637,7 +603,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/07/23/WebStorm-vim/" data-id="cirja2pq4000qdc1u0v5ch0kn" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/07/23/WebStorm-vim/" data-id="cirja43hv000pfe1uqfyhntfu" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -765,7 +731,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/07/21/Refreshow開發規範/" data-id="cirja2ppz000mdc1udyqk65ye" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/07/21/Refreshow開發規範/" data-id="cirja43hr000mfe1ufjfbqrgr" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -898,7 +864,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/07/17/Redux-Action-Reducer-Store/" data-id="cirja2ppt000gdc1uiru7c5ma" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/07/17/Redux-Action-Reducer-Store/" data-id="cirja43hm000ffe1urkbzbzk3" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1031,7 +997,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/07/17/如何多人協作Github-Pages部落格/" data-id="cirja2pq8000tdc1u8uke3361" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/07/17/如何多人協作Github-Pages部落格/" data-id="cirja43hz000sfe1u7vnxh9ap" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1164,7 +1130,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/07/16/MERN-Stack-產品開發之路-Part-2-版本控制/" data-id="cirja2pp90007dc1uv2o4x4u9" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/07/16/MERN-Stack-產品開發之路-Part-2-版本控制/" data-id="cirja43ha0008fe1urx2mkll6" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1297,7 +1263,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/07/16/MERN-Stack-產品開發之路-Part-1-編輯器/" data-id="cirja2ppl000ddc1u1igjmc1n" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/07/16/MERN-Stack-產品開發之路-Part-1-編輯器/" data-id="cirja43hd000cfe1uqgv270y6" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1430,7 +1396,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/07/16/MERN-Stack-產品開發之路-Part-0-總覽/" data-id="cirja2pp50005dc1uhy97s7v5" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/07/16/MERN-Stack-產品開發之路-Part-0-總覽/" data-id="cirja43h60006fe1ugghln6qe" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding

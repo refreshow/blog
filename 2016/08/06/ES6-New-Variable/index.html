@@ -9,9 +9,7 @@
 
 var
 let
-const
-
-function scoping vs block scoping第一種大家不陌生，但要特別注意它是function scoping，舉一些例子：第一個例子，暖暖身，這是很單純的用法，不再解釋1234567var width = 500;function hello()&amp;#123;  conso">
+const">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6-New Variable">
 <meta property="og:url" content="https://refreshow.github.io/blog/2016/08/06/ES6-New-Variable/index.html">
@@ -20,19 +18,15 @@ function scoping vs block scoping第一種大家不陌生，但要特別注意�
 
 var
 let
-const
-
-function scoping vs block scoping第一種大家不陌生，但要特別注意它是function scoping，舉一些例子：第一個例子，暖暖身，這是很單純的用法，不再解釋1234567var width = 500;function hello()&amp;#123;  conso">
-<meta property="og:updated_time" content="2016-08-06T14:29:35.000Z">
+const">
+<meta property="og:updated_time" content="2016-08-06T14:34:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6-New Variable">
 <meta name="twitter:description" content="隨著ES6的普及，在Javascript中，宣告一個新的變數有三種方式
 
 var
 let
-const
-
-function scoping vs block scoping第一種大家不陌生，但要特別注意它是function scoping，舉一些例子：第一個例子，暖暖身，這是很單純的用法，不再解釋1234567var width = 500;function hello()&amp;#123;  conso">
+const">
     
 
     
@@ -206,15 +200,17 @@ ga('send', 'pageview');
 <ol>
 <li>var</li>
 <li>let</li>
-<li>const</li>
+<li>const<a id="more"></a>
+<h1 id="function-scoping-vs-block-scoping"><a href="#function-scoping-vs-block-scoping" class="headerlink" title="function scoping vs block scoping"></a>function scoping vs block scoping</h1>第一種大家不陌生，但要特別注意它是<strong>function scoping</strong>，舉一些例子：<br>第一個例子，暖暖身，這是很單純的用法，不再解釋<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> width = <span class="number">500</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(width);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//---console---</span></div><div class="line"><span class="comment">//500</span></div></pre></td></tr></table></figure>
+</li>
 </ol>
-<h1 id="function-scoping-vs-block-scoping"><a href="#function-scoping-vs-block-scoping" class="headerlink" title="function scoping vs block scoping"></a>function scoping vs block scoping</h1><p>第一種大家不陌生，但要特別注意它是<strong>function scoping</strong>，舉一些例子：<br>第一個例子，暖暖身，這是很單純的用法，不再解釋<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> width = <span class="number">500</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(width);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//---console---</span></div><div class="line"><span class="comment">//500</span></div></pre></td></tr></table></figure></p>
 <p>第二個例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> width = <span class="number">500</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>若在console中輸入<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">width</span> <span class="keyword">or</span> window.<span class="built_in">width</span></div></pre></td></tr></table></figure></p>
 <p>答案是會是</p>
 <blockquote>
-<p>500<br>why? 因為var是function scoping，我們若把var換成let和const，則會出現<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Uncaught ReferenceError: <span class="built_in">width</span> <span class="built_in">is</span> <span class="keyword">not</span> defined(…)</div></pre></td></tr></table></figure></p>
+<p>500</p>
 </blockquote>
+<p>why? 因為var是function scoping，我們若把var換成let和const，則會出現<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Uncaught ReferenceError: <span class="built_in">width</span> <span class="built_in">is</span> <span class="keyword">not</span> defined(…)</div></pre></td></tr></table></figure></p>
 <p>因為let和const是block scoping。</p>
 <p>再來一個經典的問題<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>; i++)&#123;</div><div class="line">  setTimeout( <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">'The number is '</span> + i) &#125;,<span class="number">1000</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>如果你將上面的這串丟到console就會得到一個結果</p>
@@ -230,8 +226,9 @@ ga('send', 'pageview');
 <h1 id="let-vs-const"><a href="#let-vs-const" class="headerlink" title="let vs const"></a>let vs const</h1><p>let是ES6宣告變數的新方式，由上面知道它除了是block scoping外，它還有一些特色，如:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> points = <span class="number">50</span>;</div><div class="line"><span class="keyword">let</span> points = <span class="number">60</span>;</div></pre></td></tr></table></figure></p>
 <p>會出現</p>
 <blockquote>
-<p>VM473:1 Uncaught TypeError: Identifier ‘points’ has already been declared(…)<br>也就是let宣告的『變數』(非常數) <strong>在同一個block中</strong>，無法在宣告第二次，而var就不會有此限制，這算是一種<br>保護機制，避免變數在專案越來越大，協同越來越多的情況下的措施。</p>
+<p>VM473:1 Uncaught TypeError: Identifier ‘points’ has already been declared(…)</p>
 </blockquote>
+<p>也就是let宣告的『變數』(非常數) <strong>在同一個block中</strong>，無法在宣告第二次，而var就不會有此限制，這算是一種<br>保護機制，避免變數在專案越來越大，協同越來越多的情況下的措施。</p>
 <p>再來看看下面例子<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> <span class="attr">abc</span> = <span class="literal">false</span>;</div><div class="line"><span class="keyword">let</span> <span class="attr">math</span> = <span class="number">50</span>;</div><div class="line"><span class="keyword">if</span>(math&gt;<span class="number">30</span>) &#123;</div><div class="line">  <span class="keyword">let</span> <span class="attr">abc</span> = <span class="literal">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>若在console中輸入abc，則答案是false，why? 因為let是block scoping，第一個abc是屬於<br>window也就全域這個block，而第二個abc是屬於if這個block，雖然名稱相同，但是不同block<br>是不會出錯的。</p>
 <p>接下來我們來介紹const，顧名思義，就是常數，除了一定要初始化外，要注意的事情是<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> person = &#123;</div><div class="line">  name: <span class="string">'tom'</span>,</div><div class="line">  age: <span class="number">10</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -252,7 +249,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/08/06/ES6-New-Variable/" data-id="cirja2pnc0000dc1u942t6cwy" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/08/06/ES6-New-Variable/" data-id="cirja43fn0000fe1uk7fd0dsb" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
