@@ -65,7 +65,7 @@ import {fetchImages} from './flickr'; //從flickr提供的API抓Images回來
 import {put, take, fork} from 'redux-saga/effects'; // saga本身提供的方法
 
 export function* loadImages() {
-  const images = yield fetchImages();
+  const images = yield fetchImages();// fetchImage返回promise
   yield put({type: 'IMAGES_LOAD', images});
   yield put({type: 'IMAGE_SELECTED', image: images[0]});
 }
