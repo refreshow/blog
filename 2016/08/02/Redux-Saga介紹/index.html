@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Redux Saga介紹 | Refreshow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="前言Async Action是實際應用常會發生的情況，它可以用來處理非同步的事件，例如對伺服器發出request。而支援非同步Action，其實不只Saga，這類型的處理也包含Redux-promise，Redux-thunk..等等，那為什麼選擇Saga?這理由很多，其中我個人認為包含">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redux Saga介紹">
+<meta property="og:url" content="https://refreshow.github.io/blog/2016/08/02/Redux-Saga介紹/index.html">
+<meta property="og:site_name" content="Refreshow">
+<meta property="og:description" content="前言Async Action是實際應用常會發生的情況，它可以用來處理非同步的事件，例如對伺服器發出request。而支援非同步Action，其實不只Saga，這類型的處理也包含Redux-promise，Redux-thunk..等等，那為什麼選擇Saga?這理由很多，其中我個人認為包含">
+<meta property="og:updated_time" content="2016-08-06T10:17:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redux Saga介紹">
+<meta name="twitter:description" content="前言Async Action是實際應用常會發生的情況，它可以用來處理非同步的事件，例如對伺服器發出request。而支援非同步Action，其實不只Saga，這類型的處理也包含Redux-promise，Redux-thunk..等等，那為什麼選擇Saga?這理由很多，其中我個人認為包含">
+    
+
+    
+        <link rel="alternate" href="/" title="Refreshow" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/blog/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/blog/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/blog/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/blog/css/style.css">
+
+    <script src="/blog/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/blog/vendor/fancybox/jquery.fancybox.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-81852219-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+    
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/blog/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Refreshow</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/blog/.">Home</a>
+                
+                    <a class="main-nav-link" href="/blog/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/blog/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/blog/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/blog/about">About</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜尋" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: 'Pages',
+            CATEGORIES: '分類',
+            TAGS: '標籤',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/blog/',
+        CONTENT_URL: '/blog/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/blog/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/blog/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/blog/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/blog/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/blog/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/blog/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜尋" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            <section id="main"><article id="post-Redux-Saga介紹" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Redux Saga介紹
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/blog/2016/08/02/Redux-Saga介紹/">
+            <time datetime="2016-08-02T00:13:55.000Z" itemprop="datePublished">2016-08-02</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/blog/categories/Javascript/">Javascript</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/blog/categories/Javascript/React-js/">React.js</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/blog/tags/javascript/">javascript</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Async Action是實際應用常會發生的情況，它可以用來處理非同步的事件，例如對伺服器發<br>出request。而支援非同步Action，其實不只Saga，這類型的處理也包含Redux-promise，<br>Redux-thunk..等等，那為什麼選擇Saga?這理由很多，其中我個人認為包含</p>
+<a id="more"></a>
+<ol>
+<li>Generator function的特性帶來更強大的非同步操作(ex:long lived transaction)</li>
+<li>支援平行化的處理，thread-like的行為</li>
+<li>非常方便測試</li>
+<li>讓你的ActionCreator是Pure的(若用redux-thunk則action creator會有side effect的問題)<br>..等</li>
+</ol>
+<p>下面有兩個有趣的教材，推薦想要更進一步了解saga的朋友可以看看。</p>
+<ol>
+<li><a href="https://www.youtube.com/watch?v=QJVdcIlqGwc" target="_blank" rel="external">2016 React-europe: Manage side-effects efficiently with Redux Saga</a></li>
+<li><a href="http://konkle.us/master-complex-redux-workflows-with-sagas/" target="_blank" rel="external">Master Complex Redux Workflows with Sagas</a></li>
+</ol>
+<p>接下來，用一個普遍call遠端api的例子，來說明redux-saga的用法。在開始之前，有幾個概念需要了解:</p>
+<ol>
+<li>須了解redux middleware的概念</li>
+<li>saga利用middleware的概念，它介於ActionCreator跟reducer間</li>
+<li>generator function須事先了解</li>
+</ol>
+<h1 id="第一步-引入redux-saga"><a href="#第一步-引入redux-saga" class="headerlink" title="第一步:引入redux-saga"></a>第一步:引入redux-saga</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="string">"babel-polyfill"</span></div><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></div><div class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span></div><div class="line"><span class="keyword">import</span> Gallery <span class="keyword">from</span> <span class="string">'./Gallery'</span>;</div><div class="line"><span class="keyword">import</span> reducer <span class="keyword">from</span> <span class="string">'./reducer'</span>;</div><div class="line"><span class="keyword">import</span> &#123;Provider&#125; <span class="keyword">from</span> <span class="string">'react-redux'</span>;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">import</span> &#123; createStore, applyMiddleware &#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</div><div class="line"><span class="keyword">import</span> createSagaMiddleware <span class="keyword">from</span> <span class="string">'redux-saga'</span>;</div><div class="line"><span class="keyword">import</span> &#123;loadImages&#125; <span class="keyword">from</span> <span class="string">'./saga'</span>;</div><div class="line"><span class="keyword">const</span> store = createStore(reducer, applyMiddleware(createSagaMiddleware(loadImages)));</div><div class="line"></div><div class="line">ReactDOM.render(</div><div class="line">  <span class="xml"><span class="tag">&lt;<span class="name">Provider</span> <span class="attr">store</span>=<span class="string">&#123;store&#125;</span>&gt;</span></span></div><div class="line">    <span class="tag">&lt;<span class="name">Gallery</span>/&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">Provider</span>&gt;</span></div><div class="line">  ,</div><div class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>)</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>觀察一下第9行到12行。<br>我們從redux中取出applyMiddleware，前面說過saga本身就是一個Middleware的概念，<br>所以從redux-saga中取出createSagaMiddleware這個方法，最後將我們寫的saga檔丟進<br>createSagaMiddleware這方法中。</p>
+<h1 id="第二步：寫Saga"><a href="#第二步：寫Saga" class="headerlink" title="第二步：寫Saga"></a>第二步：寫Saga</h1><p>Saga即是generator function，saga檔如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123;fetchImages&#125; <span class="keyword">from</span> <span class="string">'./flickr'</span>; <span class="comment">//從flickr提供的API抓Images回來</span></div><div class="line"><span class="keyword">import</span> &#123;put, take, fork&#125; <span class="keyword">from</span> <span class="string">'redux-saga/effects'</span>; <span class="comment">// saga本身提供的方法</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span>* <span class="title">loadImages</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> images = <span class="keyword">yield</span> fetchImages();</div><div class="line">  <span class="keyword">yield</span> put(&#123;type: <span class="string">'IMAGES_LOAD'</span>, images&#125;);</div><div class="line">  <span class="keyword">yield</span> put(&#123;type: <span class="string">'IMAGE_SELECTED'</span>, image: images[<span class="number">0</span>]&#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span>* <span class="title">watchForLoadImages</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</div><div class="line">    <span class="keyword">yield</span> take(<span class="string">'LOAD_IMAGES'</span>)</div><div class="line">    <span class="keyword">yield</span> fork(loadImages);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>提醒一下，redux-saga是介於actionCreator與reducer之間的middleware，所以他會去監聽<br>ActionCreator發了什麼Action，這邊我們寫一個監聽的GF，watchForLoadImages就是這個用途。<br>我們來看看此function的內部，第一個take表示他會『主動』去監聽有LOAD_IMAGES這個type的Action，<br>一旦ActionCreator發出此Action，就會被catch到，此時就會執行下一個敘述句<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">yield</span> <span class="title">fork</span>(<span class="params">loadImages</span>)</span>;</div></pre></td></tr></table></figure></p>
+<p>當然你也可以寫成<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">yield</span> <span class="title">loadImages</span>(<span class="params"></span>)</span>;</div></pre></td></tr></table></figure></p>
+<p>但如果這樣寫就變成blocking的行為，即表示一次只能執行一次LOAD_IMAGES這個workflow，<br>如果寫成fork就可以同時執行這workflow。接著就會執行loadImages這個GF<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span>* <span class="title">loadImages</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> images = <span class="keyword">yield</span> fetchImages();</div><div class="line">  <span class="keyword">yield</span> put(&#123;type: <span class="string">'IMAGES_LOAD'</span>, images&#125;);</div><div class="line">  <span class="keyword">yield</span> put(&#123;type: <span class="string">'IMAGE_SELECTED'</span>, image: images[<span class="number">0</span>]&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>這邊要特別提醒一下，Generator function是用很像同步的寫法去表達非同步。<br>而put的功用類似redux中的dispatch。</p>
+<h1 id="測試"><a href="#測試" class="headerlink" title="測試"></a>測試</h1><p>寫到這邊，其實Saga已經寫完了，剩下則是Testing的部分。<br>在saga中，非同步的測試碼很好撰寫的原因，歸功於generator function，在saga中，比較常用的<br>好像是<a href="https://github.com/substack/tape" target="_blank" rel="external">tape</a>，所以我們用tape來撰寫test碼</p>
+<p>我們先新增一個test.js，上面有寫好一些基本的程式碼<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> test <span class="keyword">from</span> <span class="string">'tape'</span>;</div><div class="line"><span class="keyword">import</span> &#123;put, take&#125; <span class="keyword">from</span> <span class="string">'redux-saga/effects'</span></div><div class="line"><span class="keyword">import</span> &#123;watchForLoadImages, loadImages&#125; <span class="keyword">from</span> <span class="string">'./sagas'</span>;</div><div class="line"><span class="keyword">import</span> &#123;fetchImages&#125; <span class="keyword">from</span> <span class="string">'./flickr'</span>;</div><div class="line"></div><div class="line">test(<span class="string">'watchForLoadImages'</span>, assert =&gt; &#123;</div><div class="line">  <span class="keyword">const</span> generator = watchForLoadImages();</div><div class="line">  <span class="comment">//寫你要測試的程式碼</span></div><div class="line">  assert.end();</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>接著我們使用deepEqual這個方法，他接受兩個參數，並確認第一個參數的結果是否與第二個相等，<br><figure class="highlight moonscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> test <span class="keyword">from</span> <span class="string">'tape'</span>;</div><div class="line"><span class="keyword">import</span> &#123;put, take&#125; <span class="keyword">from</span> <span class="string">'redux-saga/effects'</span></div><div class="line"><span class="keyword">import</span> &#123;watchForLoadImages, loadImages&#125; <span class="keyword">from</span> <span class="string">'./sagas'</span>;</div><div class="line"><span class="keyword">import</span> &#123;fetchImages&#125; <span class="keyword">from</span> <span class="string">'./flickr'</span>;</div><div class="line"></div><div class="line">test(<span class="string">'watchForLoadImages'</span>, <span class="built_in">assert</span> =&gt; &#123;</div><div class="line">  const generator = watchForLoadImages();</div><div class="line"></div><div class="line">  <span class="built_in">assert</span>.deepEqual(</div><div class="line">    generator.<span class="built_in">next</span>().value, //<span class="built_in">next</span>是GF的語法</div><div class="line">    <span class="literal">false</span>,</div><div class="line">    <span class="string">'watchForLoadImages should be waiting for LOAD_IMAGES action'</span></div><div class="line">  );</div><div class="line"></div><div class="line">  <span class="built_in">assert</span>.end();</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>如果這時候你下npm test，則會得到下面的錯誤訊息<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="section">✖ watchLoadImages should be waiting for LOAD_IMAGES action</span></div><div class="line">-----------------------------------------------------------</div><div class="line"><span class="code">  operator: deepEqual</span></div><div class="line"><span class="code">  expected: |-</span></div><div class="line"><span class="code">    false</span></div><div class="line"><span class="code">  actual: |-</span></div><div class="line"><span class="code">    &#123; TAKE: 'LOAD_IMAGES' &#125;</span></div></pre></td></tr></table></figure></p>
+<p>從上面的訊息得知，他期待的是得到<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; <span class="attribute">TAKE</span>: <span class="string">'LOAD_IMAGES'</span> &#125;</div></pre></td></tr></table></figure></p>
+<p>接著，我們在原本的測試檔中，增加下面的code<br><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">assert</span>.deepEqual(</div><div class="line">  gen.<span class="keyword">next</span>().value,</div><div class="line">   false,</div><div class="line">   <span class="symbol">'watchForLoadImages</span> should call loadImages <span class="keyword">after</span> LOAD_IMAGES action <span class="keyword">is</span> received'</div><div class="line"> );</div></pre></td></tr></table></figure></p>
+<p>因為GF的next()，所以就會從上一次執行yield那一行在開始往下執行</p>
+<p>如果在下npm test就會得到<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="section">✖ watchForLoadImages should call loadImages after LOAD_IMAGES action is received</span></div><div class="line">---------------------------------------------------------------------------------</div><div class="line"><span class="code">  operator: deepEqual</span></div><div class="line"><span class="code">  expected: |-</span></div><div class="line"><span class="code">    false</span></div><div class="line"><span class="code">  actual: |-</span></div><div class="line"><span class="code">    &#123; FORK: &#123; args: [], context: null, fn: [Function: loadImages] &#125; &#125;</span></div></pre></td></tr></table></figure></p>
+<p>我們可以很清楚看到，我們期待的是得到<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; <span class="string">FORK:</span> &#123; <span class="string">args:</span> [], <span class="string">context:</span> <span class="literal">null</span>, <span class="string">fn:</span> [<span class="string">Function:</span> loadImages] &#125; &#125;</div></pre></td></tr></table></figure></p>
+<p>同時我們也要了解</p>
+<blockquote>
+<p>我們不會真的去執行loadImages這個function，取而代之的是我們只是測試他函數名是否有正確</p>
+</blockquote>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>以上只是Saga的簡短介紹，但Saga其實不只如此，有興趣可以去<a href="http://leonshi.com/redux-saga-in-chinese/docs/introduction/BeginnerTutorial.html" target="_blank" rel="external">初級教程 Redux-Saga</a><br>研究看看，還有如果有講的不對的地方，也請告知。</p>
+<h3 id="參考資料Build-an-Image-Gallery-Using-React-Redux-and-redux-saga"><a href="#參考資料Build-an-Image-Gallery-Using-React-Redux-and-redux-saga" class="headerlink" title="參考資料Build an Image Gallery Using React, Redux and redux-saga"></a>參考資料<a href="http://joelhooks.com/blog/2016/03/20/build-an-image-gallery-using-redux-saga" target="_blank" rel="external">Build an Image Gallery Using React, Redux and redux-saga</a></h3>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="https://refreshow.github.io/blog/blog/2016/08/02/Redux-Saga介紹/" data-id="cirj0n4r0000muj1u6azsv6z3" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="https://refreshow.github.io/blog/blog/2016/08/02/Redux-Saga介紹/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="https://refreshow.github.io/blog/blog/2016/08/02/Redux-Saga介紹/">評論</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/blog/2016/07/24/How-To-Scaling-React-js-Applications/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">How To Scaling React.js Applications</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/blog/categories/Javascript/">Javascript</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/blog/categories/Javascript/React-js/">React.js</a></p>
+                            <p class="item-title"><a href="/blog/2016/08/02/Redux-Saga介紹/" class="title">Redux Saga介紹</a></p>
+                            <p class="item-date"><time datetime="2016-08-02T00:13:55.000Z" itemprop="datePublished">2016-08-02</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/blog/categories/Javascript/">Javascript</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/blog/categories/Javascript/React-js/">React.js</a></p>
+                            <p class="item-title"><a href="/blog/2016/07/24/How-To-Scaling-React-js-Applications/" class="title">How To Scaling React.js Applications</a></p>
+                            <p class="item-date"><time datetime="2016-07-24T01:43:53.000Z" itemprop="datePublished">2016-07-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/blog/categories/training/">training</a></p>
+                            <p class="item-title"><a href="/blog/2016/07/23/WebStorm-vim/" class="title">Webstorm + vim 雙劍合壁</a></p>
+                            <p class="item-date"><time datetime="2016-07-23T02:31:03.000Z" itemprop="datePublished">2016-07-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/blog/categories/training/">training</a></p>
+                            <p class="item-title"><a href="/blog/2016/07/21/Refreshow開發規範/" class="title">Refreshow開發規範</a></p>
+                            <p class="item-date"><time datetime="2016-07-20T18:14:58.000Z" itemprop="datePublished">2016-07-21</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/blog/categories/javascript/">javascript</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/blog/categories/javascript/react-js/">react.js</a></p>
+                            <p class="item-title"><a href="/blog/2016/07/17/Redux-Action-Reducer-Store/" class="title">Redux-Action/Reducer/Store</a></p>
+                            <p class="item-date"><time datetime="2016-07-17T13:32:13.000Z" itemprop="datePublished">2016-07-17</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分類</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Javascript/">Javascript</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Javascript/React-js/">React.js</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">javascript</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/react-js/">react.js</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/training/">training</a><span class="category-list-count">6</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">歸檔</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/08/">八月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">七月 2016</a><span class="archive-list-count">8</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">標籤</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/MERN/">MERN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Webstorm/">Webstorm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vim/">vim</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">標籤雲</h3>
+        <div class="widget tagcloud">
+            <a href="/blog/tags/MERN/" style="font-size: 20px;">MERN</a> <a href="/blog/tags/Webstorm/" style="font-size: 10px;">Webstorm</a> <a href="/blog/tags/blog/" style="font-size: 10px;">blog</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/blog/tags/vim/" style="font-size: 10px;">vim</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">連結</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2016 Refreshow<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'https://refreshow.github.io/blog/blog/2016/08/02/Redux-Saga介紹/';
+        
+        this.page.identifier = 'Redux-Saga介紹';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'hexo-theme-icarus' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    
+        <script src="/blog/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/blog/js/main.js"></script>
+
+    </div>
+</body>
+</html>
