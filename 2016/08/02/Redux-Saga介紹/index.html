@@ -11,7 +11,7 @@
 <meta property="og:url" content="https://refreshow.github.io/blog/2016/08/02/Redux-Saga介紹/index.html">
 <meta property="og:site_name" content="Refreshow">
 <meta property="og:description" content="前言Async Action是實際應用常會發生的情況，它可以用來處理非同步的事件，例如對伺服器發出request。而支援非同步Action，其實不只Saga，這類型的處理也包含Redux-promise，Redux-thunk..等等，那為什麼選擇Saga?這理由很多，其中我個人認為包含">
-<meta property="og:updated_time" content="2016-08-06T10:17:00.000Z">
+<meta property="og:updated_time" content="2016-08-06T14:30:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redux Saga介紹">
 <meta name="twitter:description" content="前言Async Action是實際應用常會發生的情況，它可以用來處理非同步的事件，例如對伺服器發出request。而支援非同步Action，其實不只Saga，這類型的處理也包含Redux-promise，Redux-thunk..等等，那為什麼選擇Saga?這理由很多，其中我個人認為包含">
@@ -205,7 +205,7 @@ ga('send', 'pageview');
 </ol>
 <h1 id="第一步-引入redux-saga"><a href="#第一步-引入redux-saga" class="headerlink" title="第一步:引入redux-saga"></a>第一步:引入redux-saga</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="string">"babel-polyfill"</span></div><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></div><div class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span></div><div class="line"><span class="keyword">import</span> Gallery <span class="keyword">from</span> <span class="string">'./Gallery'</span>;</div><div class="line"><span class="keyword">import</span> reducer <span class="keyword">from</span> <span class="string">'./reducer'</span>;</div><div class="line"><span class="keyword">import</span> &#123;Provider&#125; <span class="keyword">from</span> <span class="string">'react-redux'</span>;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">import</span> &#123; createStore, applyMiddleware &#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</div><div class="line"><span class="keyword">import</span> createSagaMiddleware <span class="keyword">from</span> <span class="string">'redux-saga'</span>;</div><div class="line"><span class="keyword">import</span> &#123;loadImages&#125; <span class="keyword">from</span> <span class="string">'./saga'</span>;</div><div class="line"><span class="keyword">const</span> store = createStore(reducer, applyMiddleware(createSagaMiddleware(loadImages)));</div><div class="line"></div><div class="line">ReactDOM.render(</div><div class="line">  <span class="xml"><span class="tag">&lt;<span class="name">Provider</span> <span class="attr">store</span>=<span class="string">&#123;store&#125;</span>&gt;</span></span></div><div class="line">    <span class="tag">&lt;<span class="name">Gallery</span>/&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">Provider</span>&gt;</span></div><div class="line">  ,</div><div class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>)</div><div class="line">);</div></pre></td></tr></table></figure>
 <p>觀察一下第9行到12行。<br>我們從redux中取出applyMiddleware，前面說過saga本身就是一個Middleware的概念，<br>所以從redux-saga中取出createSagaMiddleware這個方法，最後將我們寫的saga檔丟進<br>createSagaMiddleware這方法中。</p>
-<h1 id="第二步：寫Saga"><a href="#第二步：寫Saga" class="headerlink" title="第二步：寫Saga"></a>第二步：寫Saga</h1><p>Saga即是generator function，saga檔如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123;fetchImages&#125; <span class="keyword">from</span> <span class="string">'./flickr'</span>; <span class="comment">//從flickr提供的API抓Images回來</span></div><div class="line"><span class="keyword">import</span> &#123;put, take, fork&#125; <span class="keyword">from</span> <span class="string">'redux-saga/effects'</span>; <span class="comment">// saga本身提供的方法</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span>* <span class="title">loadImages</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> images = <span class="keyword">yield</span> fetchImages();</div><div class="line">  <span class="keyword">yield</span> put(&#123;type: <span class="string">'IMAGES_LOAD'</span>, images&#125;);</div><div class="line">  <span class="keyword">yield</span> put(&#123;type: <span class="string">'IMAGE_SELECTED'</span>, image: images[<span class="number">0</span>]&#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span>* <span class="title">watchForLoadImages</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</div><div class="line">    <span class="keyword">yield</span> take(<span class="string">'LOAD_IMAGES'</span>)</div><div class="line">    <span class="keyword">yield</span> fork(loadImages);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="第二步：寫Saga"><a href="#第二步：寫Saga" class="headerlink" title="第二步：寫Saga"></a>第二步：寫Saga</h1><p>Saga即是generator function，saga檔如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123;fetchImages&#125; <span class="keyword">from</span> <span class="string">'./flickr'</span>; <span class="comment">//從flickr提供的API抓Images回來</span></div><div class="line"><span class="keyword">import</span> &#123;put, take, fork&#125; <span class="keyword">from</span> <span class="string">'redux-saga/effects'</span>; <span class="comment">// saga本身提供的方法</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span>* <span class="title">loadImages</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> images = <span class="keyword">yield</span> fetchImages();<span class="comment">// fetchImage返回promise</span></div><div class="line">  <span class="keyword">yield</span> put(&#123;type: <span class="string">'IMAGES_LOAD'</span>, images&#125;);</div><div class="line">  <span class="keyword">yield</span> put(&#123;type: <span class="string">'IMAGE_SELECTED'</span>, image: images[<span class="number">0</span>]&#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span>* <span class="title">watchForLoadImages</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</div><div class="line">    <span class="keyword">yield</span> take(<span class="string">'LOAD_IMAGES'</span>)</div><div class="line">    <span class="keyword">yield</span> fork(loadImages);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>提醒一下，redux-saga是介於actionCreator與reducer之間的middleware，所以他會去監聽<br>ActionCreator發了什麼Action，這邊我們寫一個監聽的GF，watchForLoadImages就是這個用途。<br>我們來看看此function的內部，第一個take表示他會『主動』去監聽有LOAD_IMAGES這個type的Action，<br>一旦ActionCreator發出此Action，就會被catch到，此時就會執行下一個敘述句<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">yield</span> <span class="title">fork</span>(<span class="params">loadImages</span>)</span>;</div></pre></td></tr></table></figure></p>
 <p>當然你也可以寫成<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">yield</span> <span class="title">loadImages</span>(<span class="params"></span>)</span>;</div></pre></td></tr></table></figure></p>
 <p>但如果這樣寫就變成blocking的行為，即表示一次只能執行一次LOAD_IMAGES這個workflow，<br>如果寫成fork就可以同時執行這workflow。接著就會執行loadImages這個GF<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span>* <span class="title">loadImages</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> images = <span class="keyword">yield</span> fetchImages();</div><div class="line">  <span class="keyword">yield</span> put(&#123;type: <span class="string">'IMAGES_LOAD'</span>, images&#125;);</div><div class="line">  <span class="keyword">yield</span> put(&#123;type: <span class="string">'IMAGE_SELECTED'</span>, image: images[<span class="number">0</span>]&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -234,7 +234,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="https://refreshow.github.io/blog/blog/2016/08/02/Redux-Saga介紹/" data-id="cirj0n4r0000muj1u6azsv6z3" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://refreshow.github.io/blog/blog/2016/08/02/Redux-Saga介紹/" data-id="cirja2ppw000jdc1u1no83gwm" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -311,6 +311,15 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
+        <a href="/blog/2016/08/06/ES6-New-Variable/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    ES6-New Variable
+                
+            </div>
+        </a>
+    
     
         <a href="/blog/2016/07/24/How-To-Scaling-React-js-Applications/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
@@ -348,6 +357,15 @@ ga('send', 'pageview');
                     <li>
                         
                         <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/blog/categories/Javascript/">Javascript</a></p>
+                            <p class="item-title"><a href="/blog/2016/08/06/ES6-New-Variable/" class="title">ES6-New Variable</a></p>
+                            <p class="item-date"><time datetime="2016-08-06T12:51:23.000Z" itemprop="datePublished">2016-08-06</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/blog/categories/Javascript/">Javascript</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/blog/categories/Javascript/React-js/">React.js</a></p>
                             <p class="item-title"><a href="/blog/2016/08/02/Redux-Saga介紹/" class="title">Redux Saga介紹</a></p>
                             <p class="item-date"><time datetime="2016-08-02T00:13:55.000Z" itemprop="datePublished">2016-08-02</time></p>
@@ -381,15 +399,6 @@ ga('send', 'pageview');
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/blog/categories/javascript/">javascript</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/blog/categories/javascript/react-js/">react.js</a></p>
-                            <p class="item-title"><a href="/blog/2016/07/17/Redux-Action-Reducer-Store/" class="title">Redux-Action/Reducer/Store</a></p>
-                            <p class="item-date"><time datetime="2016-07-17T13:32:13.000Z" itemprop="datePublished">2016-07-17</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -399,7 +408,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">分類</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Javascript/">Javascript</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Javascript/React-js/">React.js</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">javascript</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/react-js/">react.js</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/training/">training</a><span class="category-list-count">6</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Javascript/">Javascript</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/Javascript/React-js/">React.js</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">javascript</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/react-js/">react.js</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/training/">training</a><span class="category-list-count">6</span></li></ul>
         </div>
     </div>
 
@@ -408,7 +417,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">歸檔</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/08/">八月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">七月 2016</a><span class="archive-list-count">8</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">七月 2016</a><span class="archive-list-count">8</span></li></ul>
         </div>
     </div>
 
@@ -417,7 +426,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">標籤</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/MERN/">MERN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Webstorm/">Webstorm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vim/">vim</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/MERN/">MERN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Webstorm/">Webstorm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vim/">vim</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -426,7 +435,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">標籤雲</h3>
         <div class="widget tagcloud">
-            <a href="/blog/tags/MERN/" style="font-size: 20px;">MERN</a> <a href="/blog/tags/Webstorm/" style="font-size: 10px;">Webstorm</a> <a href="/blog/tags/blog/" style="font-size: 10px;">blog</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/blog/tags/vim/" style="font-size: 10px;">vim</a>
+            <a href="/blog/tags/MERN/" style="font-size: 15px;">MERN</a> <a href="/blog/tags/Webstorm/" style="font-size: 10px;">Webstorm</a> <a href="/blog/tags/blog/" style="font-size: 10px;">blog</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/blog/tags/vim/" style="font-size: 10px;">vim</a>
         </div>
     </div>
 
