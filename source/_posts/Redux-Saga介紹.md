@@ -58,6 +58,57 @@ ReactDOM.render(
 所以從redux-saga中取出createSagaMiddleware這個方法，最後將我們寫的saga檔丟進
 createSagaMiddleware這方法中。
 
+### Gallery Component
+
+```javascript
+import React, {Component} from 'react'
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as GalleryAction from './action';
+
+
+export class Gallery extends Component {
+  componentDidMount() {
+    this.props.loadImages();
+  }
+  render() {
+    const {images, selectedImage, selectImage } = this.props;
+    return (
+      <div className="image-gallery">
+        <div className="gallery-image">
+          <div>
+          <img src={selectedImage} />
+          </div>
+          </div>
+          <div className="image-scroller">
+            {images.map((image, index) => (
+              <div key={index} onClick={() => selectImage(image)}>
+                <img src={image}/>
+              </div>
+              ))
+            }
+          </div>
+      </div>
+      )
+      }
+    }
+
+function mapStateToProps(state) {
+  return {
+    images: state.images,
+    selectedImage: state.selectedImage,
+  }
+}
+function mapActionCreatorsToProps(dispatch) {
+  return bindActionCreators(GalleryAction,dispatch);
+}
+export default connect(mapStateToProps,mapActionCreatorsToProps)(Gallery);
+
+```
+
+
+
+
 # 第二步：寫Saga
 Saga即是generator function，saga檔如下：
 ```javascript
@@ -70,10 +121,11 @@ export function* loadImages() {
   yield put({type: 'IMAGE_SELECTED', image: images[0]});
 }
 
+//用來監測ActionCreator是否有發出我們想偵測的Action 
 export function* watchForLoadImages() {
   while(true) {
-    yield take('LOAD_IMAGES')
-    yield fork(loadImages);
+    yield take('LOAD_IMAGES') // 偵測是否有type為'LOAD_IMAGES'的action發出
+    yield fork(loadImages);   //若有的話，則進行這行
   }
 }
 ```
@@ -99,6 +151,34 @@ export function* loadImages() {
 ```
 這邊要特別提醒一下，Generator function是用很像同步的寫法去表達非同步。
 而put的功用類似redux中的dispatch。
+
+整體的流程:
+1. 使用者在Gallery這個Component按下onClick
+2. 因為mapActionCreatorsToProps當作connect的參數的關係，所以可以直接在此Component呼叫
+   事先在ActionCreator寫好的pure function，在此Component就是selectImage
+3. 接著流程走到ActionCreator中的function，會丟出Action
+4. 若丟出的Action是我們假定要用saga處理的，則必須在saga檔中寫一個watch(監視)去不斷的看看系統是否有丟出此Action
+5. 若丟出只是一般的Action，則走一般redux的流程，也就是此Action會去找reducer
+6. 接著4，假設異步的Action發出，被watch這函數偵測到，則進行watch函數中的指定的步驟
+7. 執行完指定的步驟後(通常這裡是我們寫的generator function)，則用put通知reducer可以動作了
+
+特別提醒，這裡的yield，並不會停住，假設以下列的程式碼為例子
+```
+export function* watchForLoadImages() {
+  while(true) {
+    yield take('LOAD_IMAGES') // 偵測是否有type為'LOAD_IMAGES'的action發出
+    yield fork(loadImages);   //若有的話，則進行這行
+  }
+}
+```
+假設我現在在ActionCreator那邊發出一個Action type為LOAD_IMAGES的Action，則會被
+saga裡面的watch函數偵測到，於是就會執行
+```
+yield take('LOAD_IMGAES');
+```
+這時候，你會有疑問，是不是要某個地方下next()才會繼續往下跑一行。
+但其實不會，他會直接繼續執行。這邊其實筆者也不是很懂，反正把這些code當作yield不存在是我現在的做法XD
+感覺只有在測試的時候才比較可以看得出generator function的精神。
 
 # 測試
 寫到這邊，其實Saga已經寫完了，剩下則是Testing的部分。

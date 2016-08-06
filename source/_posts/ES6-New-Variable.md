@@ -9,7 +9,7 @@ categories: [Javascript]
 1. var
 2. let
 3. const
-
+<!--more-->
 # function scoping vs block scoping
 第一種大家不陌生，但要特別注意它是**function scoping**，舉一些例子：
 第一個例子，暖暖身，這是很單純的用法，不再解釋
@@ -34,6 +34,7 @@ width or window.width
 ```
 答案是會是
 > 500
+
 why? 因為var是function scoping，我們若把var換成let和const，則會出現
 ```
 Uncaught ReferenceError: width is not defined(…)
@@ -71,6 +72,7 @@ let points = 60;
 ```
 會出現
 > VM473:1 Uncaught TypeError: Identifier 'points' has already been declared(…)
+
 也就是let宣告的『變數』(非常數) **在同一個block中**，無法在宣告第二次，而var就不會有此限制，這算是一種
 保護機制，避免變數在專案越來越大，協同越來越多的情況下的措施。
 
