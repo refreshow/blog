@@ -94,3 +94,45 @@ import Only from '../../utils/Only'; // 3-4
 
 - js的字串一律使用單引號或backtick（`` ` ``）
 - html的props一律使用雙引號
+
+## Error Handling
+
+`200` - Everything worked
+`400` - The application did something wrong
+`500` - The API did something wrong
+
+只使用以下Status Code：`200`, `304`, `400`, `401`, `403`, `404`, `500`
+
+## Response Object
+
+``` js
+{
+  isError: true,
+  errors: [
+    {
+      status: '', // the HTTP status code applicable to this problem, expressed as a string value.
+      code: '', // an application-specific error code, expressed as a string value.
+      title: '', // a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+      detail: '', // a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+    }
+  ],
+}
+```
+
+## Error Hierarchy
+
+- Operational errors
+  - failed to connect to server
+  - failed to resolve hostname
+  - invalid user input
+  - request timeout
+  - server returned a 500 response
+  - socket hang-up
+  - system is out of memory
+- Programmer errors
+
+### 參考資料
+
+- [REST API Error Codes 101](http://blog.restcase.com/rest-api-error-codes-101/)
+- [Error Objects](http://jsonapi.org/format/upcoming/#errors)
+- [Error Handling in Node.js](https://www.joyent.com/node-js/production/design/errors)
